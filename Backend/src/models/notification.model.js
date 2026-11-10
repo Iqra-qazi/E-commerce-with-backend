@@ -8,7 +8,8 @@ const notificationSchema = new mongoose.Schema(
       required: true,
       index: true,
     },
-    customerId: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true, index: true },
+    customerId: { type: mongoose.Schema.Types.ObjectId, ref: "user", index: true },
+    guestSessionId: { type: String },
     customerName: { type: String, required: true },
     customerEmail: { type: String, required: true },
     productId: { type: mongoose.Schema.Types.ObjectId, ref: "product" },
@@ -27,7 +28,11 @@ const notificationSchema = new mongoose.Schema(
 
 notificationSchema.index(
   { customerId: 1, productId: 1 },
-  { unique: true, partialFilterExpression: { type: "cart_added" } },
+  { unique: true, partialFilterExpression: { type: "cart_added", customerId: { $type: "objectId" } } },
+);
+notificationSchema.index(
+  { guestSessionId: 1, productId: 1 },
+  { unique: true, partialFilterExpression: { type: "cart_added", guestSessionId: { $type: "string" } } },
 );
 notificationSchema.index({ createdAt: -1 });
 

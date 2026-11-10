@@ -12,8 +12,12 @@ async function startServer() {
   });
 }
 
-startServer().catch((error) => {
-  console.error("Backend startup aborted because MongoDB is unavailable.");
-  console.error(error);
-  process.exitCode = 1;
-});
+if (process.env.VERCEL !== "1") {
+  startServer().catch((error) => {
+    console.error("Backend startup aborted because MongoDB is unavailable.");
+    console.error(error);
+    process.exitCode = 1;
+  });
+}
+
+export default app;

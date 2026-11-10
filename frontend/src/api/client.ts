@@ -3,11 +3,12 @@ import axios from "axios";
 const baseURL = import.meta.env.VITE_API_URL?.trim();
 
 if (!baseURL) {
-  throw new Error("VITE_API_URL is required. Set it in frontend/.env.");
+  throw new Error("VITE_API_URL is required. Set it in frontend/.env or the frontend deployment environment.");
 }
 
 export const api = axios.create({
   baseURL,
+  withCredentials: true,
 });
 
 let handleUnauthorized = () => {

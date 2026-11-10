@@ -3,8 +3,18 @@ import notificationModel from "../models/notification.model.js";
 import productModel from "../models/product.model.js";
 
 async function createCartActivity(req, res) {
-  const { productId, quantity } = req.body ?? {};
-  if (!mongoose.isValidObjectId(productId) || !Number.isInteger(quantity) || quantity < 1 || quantity > 100) {
+  const { productId, quantity, guestSessionId } = req.body ?? {};
+  const customer = req.user;
+  const validGuestSessionId =
+    typeof guestSessionId === "string" &&
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(guestSessionId);
+  if (
+    !mongoose.isValidObjectId(productId) ||
+    !Number.isInteger(quantity) ||
+    quantity < 1 ||
+    quantity > 100 ||
+    (!customer && !validGuestSessionId)
+  ) {
     return res.status(400).json({ message: "A valid product ID and quantity are required." });
   }
 
@@ -15,20 +25,22 @@ async function createCartActivity(req, res) {
       return res.status(409).json({ message: "The requested quantity is no longer in stock." });
     }
 
-    const customer = req.user;
+    const identity = customer
+      ? { customerId: customer._id }
+      : { guestSessionId };
     const cartNotification = await notificationModel.findOneAndUpdate(
-      { type: "cart_added", customerId: customer._id, productId: product._id },
+      { type: "cart_added", ...identity, productId: product._id },
       {
         $set: {
-          customerName: customer.username,
-          customerEmail: customer.email,
+          customerName: customer?.username ?? "Guest customer",
+          customerEmail: customer?.email ?? "Guest visitor",
           productName: product.name,
           productImage: product.image,
           productPrice: product.price,
           message: "A customer added a product to their cart.",
         },
         $inc: { quantity },
-        $setOnInsert: { type: "cart_added", customerId: customer._id, productId: product._id },
+        $setOnInsert: { type: "cart_added", ...identity, productId: product._id },
         $unset: { readAt: 1 },
       },
       { returnDocument: "after", upsert: true, runValidators: true, setDefaultsOnInsert: true },
@@ -39,7 +51,7 @@ async function createCartActivity(req, res) {
     if (error?.code === 11000) {
       try {
         const existing = await notificationModel.findOneAndUpdate(
-          { type: "cart_added", customerId: req.user._id, productId },
+          { type: "cart_added", ...identity, productId },
           { $inc: { quantity }, $unset: { readAt: 1 }, $set: { updatedAt: new Date() } },
           { returnDocument: "after", runValidators: true },
         );

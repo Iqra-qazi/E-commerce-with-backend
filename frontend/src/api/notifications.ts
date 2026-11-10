@@ -3,7 +3,8 @@ import { api } from "./client";
 export type AdminNotification = {
   _id: string;
   type: "cart_added" | "new_order" | "order_status_updated";
-  customerId: string;
+  customerId?: string;
+  guestSessionId?: string;
   customerName: string;
   customerEmail: string;
   productId?: string;
@@ -20,8 +21,26 @@ export type AdminNotification = {
   updatedAt: string;
 };
 
+function getGuestSessionId() {
+  const key = "atelier_guest_session_id";
+  try {
+    const existing = localStorage.getItem(key);
+    if (existing) return existing;
+    const created = crypto.randomUUID();
+    localStorage.setItem(key, created);
+    return created;
+  } catch (error) {
+    console.error("Unable to persist the guest cart session ID:", error);
+    return crypto.randomUUID();
+  }
+}
+
 export async function recordCartActivity(productId: string, quantity: number): Promise<void> {
-  await api.post("/notifications/cart-activity", { productId, quantity });
+  await api.post("/notifications/cart-activity", {
+    productId,
+    quantity,
+    guestSessionId: getGuestSessionId(),
+  });
 }
 
 export async function getAdminNotifications() {

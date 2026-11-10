@@ -20,7 +20,7 @@ export function ProductDetailPage() {
   async function handleAddToCart() {
     if (!product) return;
     const addedQuantity = addToCart(product, Math.min(quantity, product.stock));
-    if (!user || addedQuantity === 0) return;
+    if (addedQuantity === 0) return;
 
     try {
       await recordCartActivity(product._id, addedQuantity);

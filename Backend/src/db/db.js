@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 const MAX_RETRIES = 5;
 const RETRY_DELAY_MS = 5000;
+let serverlessConnectionPromise;
 
 function getErrorDetails(error) {
   const details = [];
@@ -63,6 +64,7 @@ async function connectDB() {
       await mongoose.connect(uri, {
         serverSelectionTimeoutMS: 30000,
         connectTimeoutMS: 10000,
+        maxPoolSize: 10,
         family: 4,
       });
       console.log("MongoDB connected successfully.");
@@ -98,4 +100,33 @@ async function connectDB() {
   }
 }
 
+async function connectDBForServerless() {
+  const uri = process.env.MONGO_URI;
+  if (!uri) {
+    throw new Error("MONGO_URI is not configured.");
+  }
+  if (mongoose.connection.readyState === 1) return;
+  if (mongoose.connection.readyState !== 2) {
+    serverlessConnectionPromise = undefined;
+  }
+
+  if (!serverlessConnectionPromise) {
+    serverlessConnectionPromise = mongoose
+      .connect(uri, {
+        serverSelectionTimeoutMS: 10000,
+        connectTimeoutMS: 10000,
+        maxPoolSize: 10,
+        family: 4,
+      })
+      .then(() => undefined)
+      .catch((error) => {
+        serverlessConnectionPromise = undefined;
+        throw error;
+      });
+  }
+
+  await serverlessConnectionPromise;
+}
+
+export { connectDBForServerless };
 export default connectDB;
