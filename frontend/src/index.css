@@ -1,0 +1,522 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  font-family: "DM Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #1c1917;
+  background: #fafaf9;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand-mark {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: -0.08em;
+}
+
+.brand-mark span {
+  color: #a16cce;
+}
+
+.eyebrow {
+  color: #7952a7;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.auth-art {
+  background:
+    radial-gradient(ellipse at 70% 22%, rgb(255 235 198 / 58%), transparent 34%),
+    radial-gradient(ellipse at 16% 90%, rgb(91 104 73 / 65%), transparent 38%),
+    linear-gradient(145deg, #c36d43 0%, #a95437 44%, #564737 100%);
+}
+
+.auth-art::before,
+.auth-art::after {
+  position: absolute;
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 9999px;
+  content: "";
+}
+
+.auth-art::before {
+  top: 11%;
+  right: -14%;
+  width: 76%;
+  aspect-ratio: 1;
+}
+
+.auth-art::after {
+  right: -4%;
+  bottom: -34%;
+  width: 87%;
+  aspect-ratio: 1;
+}
+
+.input-shell {
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.input-shell:focus-within {
+  border-color: #9c74c2;
+  box-shadow: 0 0 0 3px rgb(156 116 194 / 16%);
+}
+
+.home-page {
+  background:
+    radial-gradient(ellipse at 12% 10%, rgb(239 229 255 / 54%), transparent 32rem),
+    radial-gradient(ellipse at 90% 34%, rgb(255 235 244 / 40%), transparent 28rem),
+    #fbfaff;
+}
+
+.home-heading {
+  font-family: Manrope, "DM Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+.home-hero {
+  background:
+    radial-gradient(ellipse at 84% 12%, rgb(255 255 255 / 92%), transparent 33%),
+    linear-gradient(118deg, #f3edff 0%, #fbf6ff 49%, #fff1f6 100%);
+  box-shadow: 0 24px 70px rgb(106 79 141 / 9%), inset 0 1px 0 rgb(255 255 255 / 90%);
+}
+
+.home-hero-orb {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 9999px;
+}
+
+.home-hero-orb-one {
+  right: 3%;
+  top: -14rem;
+  width: 30rem;
+  aspect-ratio: 1;
+  border: 1px solid rgb(255 255 255 / 75%);
+}
+
+.home-hero-orb-two {
+  right: 13%;
+  top: -9rem;
+  width: 21rem;
+  aspect-ratio: 1;
+  border: 1px solid rgb(185 155 219 / 20%);
+}
+
+.home-hero-orb-three {
+  bottom: -16rem;
+  left: 34%;
+  width: 28rem;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgb(251 220 235 / 48%), transparent 68%);
+}
+
+.home-gradient-text {
+  background: linear-gradient(95deg, #8659b4 8%, #a966b9 52%, #d17fa9 100%);
+  background-clip: text;
+  color: transparent;
+}
+
+.home-primary-button {
+  background: linear-gradient(105deg, #8055ad, #a56fc0 58%, #bd7da9);
+  box-shadow: 0 9px 22px rgb(126 83 165 / 22%);
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.home-primary-button:hover {
+  filter: saturate(1.08) brightness(1.04);
+  box-shadow: 0 13px 28px rgb(126 83 165 / 28%);
+  transform: translateY(-1px);
+}
+
+.home-secondary-button {
+  border: 1px solid #e8def3;
+  background: rgb(255 255 255 / 85%);
+  color: #745293;
+  box-shadow: 0 5px 16px rgb(81 60 105 / 5%);
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.home-secondary-button:hover,
+.home-view-link:hover {
+  border-color: #dac8ec;
+  background: #f5effb;
+  transform: translateY(-1px);
+}
+
+.product-card {
+  border-color: #eee8f5;
+  box-shadow: 0 8px 26px rgb(76 53 105 / 5%);
+}
+
+.product-card:hover {
+  border-color: #dfd0ef;
+  box-shadow: 0 18px 38px rgb(91 62 126 / 12%);
+}
+
+.glass-panel {
+  border: 1px solid rgb(255 255 255 / 75%);
+  background: rgb(255 255 255 / 76%);
+  box-shadow: 0 18px 55px rgb(15 23 42 / 7%);
+  backdrop-filter: blur(18px);
+}
+
+.dark .glass-panel {
+  border-color: rgb(255 255 255 / 9%);
+  background: rgb(17 24 22 / 78%);
+  box-shadow: 0 18px 55px rgb(0 0 0 / 24%);
+}
+
+.gradient-orb {
+  position: fixed;
+  z-index: 0;
+  width: 22rem;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.18;
+  pointer-events: none;
+  animation: float-orb 18s ease-in-out infinite alternate;
+}
+
+.gradient-orb-one {
+  top: 8rem;
+  left: -9rem;
+  background: #34d399;
+}
+
+.gradient-orb-two {
+  top: 32rem;
+  right: -9rem;
+  background: #22d3ee;
+  animation-delay: -7s;
+}
+
+.motion-button {
+  transition: box-shadow 180ms ease, filter 180ms ease;
+}
+
+.motion-button:hover {
+  filter: brightness(1.04);
+  box-shadow: 0 12px 30px rgb(16 185 129 / 18%);
+}
+
+@keyframes float-orb {
+  from {
+    transform: translate3d(0, -10px, 0) scale(0.96);
+  }
+  to {
+    transform: translate3d(36px, 30px, 0) scale(1.08);
+  }
+}
+
+@media print {
+  body,
+  .premium-page {
+    background: white !important;
+    color: #111827 !important;
+  }
+
+  .no-print,
+  header,
+  .gradient-orb {
+    display: none !important;
+  }
+
+  .glass-panel {
+    border: 1px solid #d1d5db !important;
+    background: white !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+:root {
+  color-scheme: light;
+  --page-bg: #faf8ff;
+  --surface: #ffffff;
+  --surface-muted: #f3eef9;
+  --text-primary: #2b2437;
+  --text-secondary: #625a70;
+  --text-muted: #827a8f;
+  --border-color: #e9e1f1;
+  --accent: #7952a7;
+  --accent-soft: #efe7f8;
+  --app-shadow: 0 12px 32px rgb(75 53 99 / 8%);
+  background-color: var(--page-bg);
+  color: var(--text-primary);
+  font-family: "DM Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+html.dark {
+  color-scheme: dark;
+  --page-bg: #17131e;
+  --surface: #211b2a;
+  --surface-muted: #2a2235;
+  --text-primary: #f4eff9;
+  --text-secondary: #d0c5dc;
+  --text-muted: #aa9eb8;
+  --border-color: #3b3048;
+  --accent: #c4a0e5;
+  --accent-soft: #352844;
+  --app-shadow: 0 16px 38px rgb(0 0 0 / 24%);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  background-color: var(--page-bg);
+}
+
+body {
+  color: var(--text-primary);
+  transition: background-color 220ms ease, color 220ms ease;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  transition-property: color, background-color, border-color, box-shadow, transform, filter;
+  transition-duration: 180ms;
+  transition-timing-function: ease;
+}
+
+[class~="bg-stone-50"],
+[class~="bg-[#fafaf9]"] {
+  background-color: var(--page-bg) !important;
+}
+
+[class~="bg-white"] {
+  background-color: var(--surface) !important;
+}
+
+[class~="bg-stone-100"],
+[class~="bg-stone-200"] {
+  background-color: var(--surface-muted) !important;
+}
+
+[class~="bg-white/80"],
+[class~="bg-white/85"],
+[class~="bg-white/90"],
+[class~="bg-white/95"],
+[class~="bg-white/55"],
+[class~="bg-white/65"],
+[class~="bg-white/70"],
+[class~="bg-white/75"] {
+  background-color: color-mix(in srgb, var(--surface) 92%, transparent) !important;
+}
+
+[class~="text-stone-950"],
+[class~="text-stone-900"],
+[class~="text-stone-800"] {
+  color: var(--text-primary) !important;
+}
+
+[class~="text-stone-700"],
+[class~="text-stone-600"] {
+  color: var(--text-secondary) !important;
+}
+
+[class~="text-stone-500"],
+[class~="text-stone-400"] {
+  color: var(--text-muted) !important;
+}
+
+[class~="text-stone-300"] {
+  color: var(--text-secondary) !important;
+}
+
+[class~="border-stone-100"],
+[class~="border-stone-200"],
+[class~="border-stone-300"] {
+  border-color: var(--border-color) !important;
+}
+
+html.dark [class~="bg-stone-900"] {
+  background-color: #8060a2 !important;
+}
+
+.auth-art {
+  background:
+    radial-gradient(ellipse at 70% 22%, rgb(246 230 255 / 54%), transparent 34%),
+    radial-gradient(ellipse at 16% 90%, rgb(152 119 189 / 55%), transparent 38%),
+    linear-gradient(145deg, #8b6aa8 0%, #76558f 48%, #574563 100%);
+}
+
+html.dark .auth-page {
+  background: var(--page-bg);
+}
+
+html.dark .auth-art {
+  background:
+    radial-gradient(ellipse at 70% 22%, rgb(185 147 221 / 20%), transparent 34%),
+    radial-gradient(ellipse at 16% 90%, rgb(117 77 146 / 36%), transparent 38%),
+    linear-gradient(145deg, #332440 0%, #271e31 50%, #1c1824 100%);
+}
+
+html.dark .home-page {
+  background:
+    radial-gradient(ellipse at 12% 10%, rgb(113 77 149 / 20%), transparent 32rem),
+    radial-gradient(ellipse at 90% 34%, rgb(151 76 121 / 15%), transparent 28rem),
+    var(--page-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+html.dark .home-hero {
+  border-color: var(--border-color);
+  background:
+    radial-gradient(ellipse at 84% 12%, rgb(188 159 213 / 13%), transparent 33%),
+    linear-gradient(118deg, #292135 0%, #292130 49%, #30212d 100%);
+  box-shadow: var(--app-shadow), inset 0 1px 0 rgb(255 255 255 / 5%);
+}
+
+html.dark .home-page [class~="text-[#302642]"],
+html.dark .home-page [class~="text-[#27213a]"],
+html.dark .home-page [class~="text-[#40344f]"],
+html.dark .home-page [class~="text-[#342a43]"],
+html.dark .home-page [class~="text-[#382e48]"] {
+  color: var(--text-primary) !important;
+}
+
+html.dark .home-page [class~="text-[#6d647d]"],
+html.dark .home-page [class~="text-[#817791]"],
+html.dark .home-page [class~="text-[#8c8299]"],
+html.dark .home-page [class~="text-[#6e6579]"] {
+  color: var(--text-muted) !important;
+}
+
+html.dark .home-page [class~="border-[#eee8fb]"],
+html.dark .home-page [class~="border-[#eee8f5]"],
+html.dark .home-page [class~="border-rose-100"] {
+  border-color: var(--border-color) !important;
+}
+
+html.dark .home-page [class~="bg-[#f2edf8]"] {
+  background-color: var(--surface-muted) !important;
+}
+
+html.dark .product-card {
+  border-color: var(--border-color);
+  background: var(--surface);
+  box-shadow: var(--app-shadow);
+}
+
+html.dark .product-card:hover {
+  border-color: #755b8f;
+  box-shadow: 0 20px 44px rgb(0 0 0 / 30%);
+}
+
+html.dark .product-card [class~="text-[#342a43]"] {
+  color: var(--text-primary) !important;
+}
+
+html.dark .product-card [class~="text-[#725196]"] {
+  color: #c4a0e5 !important;
+}
+
+html.dark [class~="bg-white/55"],
+html.dark [class~="bg-white/65"],
+html.dark [class~="bg-white/70"],
+html.dark [class~="bg-white/75"],
+html.dark [class~="bg-white/80"],
+html.dark [class~="bg-white/85"],
+html.dark [class~="bg-white/90"],
+html.dark [class~="bg-white/95"] {
+  background-color: color-mix(in srgb, var(--surface) 92%, transparent) !important;
+}
+
+html.dark .glass-panel {
+  border-color: var(--border-color);
+  background: rgb(36 29 47 / 88%);
+  box-shadow: var(--app-shadow);
+}
+
+.premium-page {
+  background-color: var(--page-bg) !important;
+  color: var(--text-primary);
+}
+
+.gradient-orb-one {
+  background: #b58bd7;
+}
+
+.gradient-orb-two {
+  background: #d58bb6;
+}
+
+.motion-button:hover {
+  box-shadow: 0 12px 30px rgb(121 82 167 / 22%);
+}
+
+.app-page-transition main > section,
+.app-page-transition main > header {
+  animation: section-enter 420ms ease both;
+}
+
+.app-page-transition main > section:nth-of-type(2) {
+  animation-delay: 70ms;
+}
+
+.product-card {
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+@keyframes section-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
